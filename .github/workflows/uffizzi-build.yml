@@ -18,16 +18,16 @@ jobs:
       tags: ${{ steps.meta.outputs.tags }}
     steps:
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
 
       - name: setup-node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@e33196f7422957bea03ed53f6fbb155025ffc7b8 # v3.7.0
         with:
           node-version: 16.x
           registry-url: https://registry.npmjs.org/
 
       - name: yarn install
-        uses: backstage/actions/yarn-install@v0.6.4
+        uses: backstage/actions/yarn-install@497722d45fb5a35c14c721f63ed74e6ad5f629dd # v0.6.4
         with:
           cache-prefix: linux-v16
 
@@ -44,7 +44,7 @@ jobs:
           yarn workspace example-backend build
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@4c0219f9ac95b02789c1075625400b2acbff50b1 # v2.9.1
 
       - name: Generate UUID image name
         id: uuid
@@ -52,13 +52,13 @@ jobs:
 
       - name: Docker metadata
         id: meta
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@818d4b7b91585d195f67373fd9cb0332e31a7175 # v4.6.0
         with:
           images: registry.uffizzi.com/${{ env.UUID_TAG_APP }}
           tags: type=raw,value=60d
 
       - name: Build Image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@2eb1c1961a95fc15694676618e422e8ba1d63825 # v4.1.1
         with:
           context: .
           file: packages/backend/Dockerfile
@@ -75,7 +75,7 @@ jobs:
       compose-file-cache-key: ${{ steps.hash.outputs.hash }}
     steps:
       - name: Checkout git repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - name: Render Compose File
         run: |
           BACKSTAGE_IMAGE=$(echo ${{ needs.build-backstage.outputs.tags }})
@@ -84,13 +84,13 @@ jobs:
           envsubst '$BACKSTAGE_IMAGE $GITHUB_SHA' < .github/uffizzi/docker-compose.uffizzi.yml > docker-compose.rendered.yml
           cat docker-compose.rendered.yml
       - name: Upload Rendered Compose File as Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         with:
           name: preview-spec
           path: docker-compose.rendered.yml
           retention-days: 2
       - name: Upload PR Event as Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         with:
           name: preview-spec
           path: ${{ github.event_path }}
@@ -103,7 +103,7 @@ jobs:
     steps:
       # If this PR is closing, we will not render a compose file nor pass it to the next workflow.
       - name: Upload PR Event as Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         with:
           name: preview-spec
           path: ${{ github.event_path }}

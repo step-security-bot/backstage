@@ -18,9 +18,9 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - name: Monitor and Synchronize Snyk Policies
-        uses: snyk/actions/node@master
+        uses: snyk/actions/node@299cde98a08ff8b1c2bfde1e5a067bce67a6d2b8 # master
         with:
           command: monitor
           args: >
@@ -35,7 +35,7 @@ jobs:
       # Above we run the `monitor` command, this runs the `test` command which is
       # the one that generates the SARIF report that we can upload to GitHub.
       - name: Create Snyk report
-        uses: snyk/actions/node@master
+        uses: snyk/actions/node@299cde98a08ff8b1c2bfde1e5a067bce67a6d2b8 # master
         continue-on-error: true # To make sure that SARIF upload gets called
         with:
           args: >
@@ -47,6 +47,6 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
           NODE_OPTIONS: --max-old-space-size=4096
       - name: Upload Snyk report
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@0ba4244466797eb048eb91a6cd43d5c03ca8bd05 # v2.21.2
         with:
           sarif_file: snyk.sarif

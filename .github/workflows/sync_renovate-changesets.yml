@@ -11,7 +11,7 @@ jobs:
     if: github.actor == 'renovate[bot]' && github.repository == 'backstage/backstage'
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
         with:
           fetch-depth: 2
           ref: ${{ github.head_ref }}
@@ -21,7 +21,7 @@ jobs:
           git config --global user.email noreply@backstage.io
           git config --global user.name 'Github changeset workflow'
       - name: Generate changeset
-        uses: actions/github-script@v6
+        uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410 # v6.4.1
         with:
           script: |
             const { promises: fs } = require("fs");

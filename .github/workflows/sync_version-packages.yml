@@ -13,14 +13,14 @@ jobs:
     name: Create Changeset PR
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
         with:
           fetch-depth: 0
           token: ${{ secrets.GH_SERVICE_ACCOUNT_TOKEN }}
       - name: Install Dependencies
         run: yarn --immutable
       - name: Create Release Pull Request
-        uses: backstage/changesets-action@v2
+        uses: backstage/changesets-action@99063c276a7f12e024cb310e7a05a3a5b89449f8 # v2.1.0
         with:
           # Calls out to `changeset version`, but also runs prettier
           version: yarn release

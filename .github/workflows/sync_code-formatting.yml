@@ -9,23 +9,23 @@ jobs:
     name: Autofix Markdown files using Prettier
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
         with:
           # Fetch changes to previous commit - required for 'only_changed' in Prettier action
           fetch-depth: 0
 
       - name: use node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@e33196f7422957bea03ed53f6fbb155025ffc7b8 # v3.7.0
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org/ # Needed for auth
       - name: yarn install
-        uses: backstage/actions/yarn-install@v0.6.4
+        uses: backstage/actions/yarn-install@497722d45fb5a35c14c721f63ed74e6ad5f629dd # v0.6.4
         with:
           cache-prefix: ${{ runner.os }}-v${{ matrix.node-version }}
 
       - name: Run Prettier on ADOPTERS.md
-        uses: creyD/prettier_action@v4.3
+        uses: creyD/prettier_action@31355f8eef017f8aeba2e0bc09d8502b13dbbad1 # v4.3
         with:
           # Modifies commit only if prettier autofixed the ADOPTERS.md
           prettier_options: --config docs/prettier.config.js --write ADOPTERS.md
