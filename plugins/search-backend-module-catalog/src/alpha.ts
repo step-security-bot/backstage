@@ -23,25 +23,28 @@ import {
   coreServices,
   createBackendModule,
 } from '@backstage/backend-plugin-api';
-import { TaskScheduleDefinition } from '@backstage/backend-tasks';
-import { searchIndexRegistryExtensionPoint } from '@backstage/plugin-search-backend-node/alpha';
-
+import {
+  readTaskScheduleDefinitionFromConfig,
+  TaskScheduleDefinition,
+} from '@backstage/backend-tasks';
+import { Config } from '@backstage/config';
+import { InputError } from '@backstage/errors';
+import { catalogServiceRef } from '@backstage/plugin-catalog-node/alpha';
 import {
   DefaultCatalogCollatorFactory,
   DefaultCatalogCollatorFactoryOptions,
 } from '@backstage/plugin-search-backend-module-catalog';
-import { catalogServiceRef } from '@backstage/plugin-catalog-node/alpha';
+import { searchIndexRegistryExtensionPoint } from '@backstage/plugin-search-backend-node/alpha';
 
 /**
- * @alpha
  * Options for {@link searchModuleCatalogCollator}.
+ *
+ * @alpha
  */
 export type SearchModuleCatalogCollatorOptions = Omit<
   DefaultCatalogCollatorFactoryOptions,
   'discovery' | 'tokenManager' | 'catalogClient'
-> & {
-  schedule?: TaskScheduleDefinition;
-};
+>;
 
 /**
  * Search backend module for the Catalog index.
@@ -70,16 +73,10 @@ export const searchModuleCatalogCollator = createBackendModule(
           indexRegistry,
           catalog,
         }) {
-          const defaultSchedule = {
-            frequency: { minutes: 10 },
-            timeout: { minutes: 15 },
-            initialDelay: { seconds: 3 },
-          };
+          const { schedule } = readConfig(config);
 
           indexRegistry.addCollator({
-            schedule: scheduler.createScheduledTaskRunner(
-              options?.schedule ?? defaultSchedule,
-            ),
+            schedule: scheduler.createScheduledTaskRunner(schedule),
             factory: DefaultCatalogCollatorFactory.fromConfig(config, {
               ...options,
               discovery,
@@ -92,3 +89,27 @@ export const searchModuleCatalogCollator = createBackendModule(
     },
   }),
 );
+
+function readConfig(config: Config) {
+  return {
+    schedule: getSchedule(config),
+  };
+}
+
+function getSchedule(config: Config): TaskScheduleDefinition {
+  const scheduleKey = 'search.collators.catalog.schedule';
+  const scheduleConfig = config.getOptionalConfig(scheduleKey);
+  if (scheduleConfig) {
+    try {
+      return readTaskScheduleDefinitionFromConfig(scheduleConfig);
+    } catch (error) {
+      throw new InputError(`Invalid schedule at ${scheduleKey}, ${error}`);
+    }
+  }
+
+  return {
+    frequency: { minutes: 10 },
+    timeout: { minutes: 15 },
+    initialDelay: { seconds: 3 },
+  };
+}
