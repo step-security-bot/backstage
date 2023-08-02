@@ -22,14 +22,14 @@ jobs:
     if: github.repository == 'backstage/backstage' && github.event.pull_request.user.login != 'backstage-service'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
         with:
           # Fetch the commit that's merged into the base rather than the target ref
           # This will let us diff only the contents of the PR, without fetching more history
           ref: 'refs/pull/${{ github.event.pull_request.number }}/merge'
       - name: fetch base
         run: git fetch --depth 1 origin ${{ github.base_ref }}
-      - uses: backstage/actions/changeset-feedback@v0.6.4
+      - uses: backstage/actions/changeset-feedback@497722d45fb5a35c14c721f63ed74e6ad5f629dd # v0.6.4
         name: Generate feedback
         with:
           diff-ref: 'origin/master'
