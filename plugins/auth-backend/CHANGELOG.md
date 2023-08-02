@@ -1,5 +1,11 @@
 # @backstage/plugin-auth-backend
 
+## 0.18.6-next.2
+
+### Patch Changes
+
+- bb70a9c3886a: Add frontend visibility to provider objects in `auth` config.
+
 ## 0.18.6-next.1
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # example-backend-next
 
+## 0.0.14-next.2
+
+### Patch Changes
+
+- Updated dependencies
+  - @backstage/plugin-search-backend-module-techdocs@0.1.4-next.2
+  - @backstage/plugin-search-backend-module-catalog@0.1.4-next.2
+  - @backstage/plugin-search-backend-module-explore@0.1.4-next.2
+  - @backstage/plugin-techdocs-backend@1.6.5-next.2
+  - @backstage/plugin-catalog-backend@1.12.0-next.2
+  - @backstage/plugin-scaffolder-backend@1.15.2-next.2
+
 ## 0.0.14-next.1
 
 ### Patch Changes

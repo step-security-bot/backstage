@@ -1,5 +1,16 @@
 # example-backend
 
+## 0.2.86-next.2
+
+### Patch Changes
+
+- Updated dependencies
+  - @backstage/plugin-auth-backend@0.18.6-next.2
+  - @backstage/plugin-techdocs-backend@1.6.5-next.2
+  - @backstage/plugin-catalog-backend@1.12.0-next.2
+  - @backstage/plugin-explore-backend@0.0.10-next.2
+  - @backstage/plugin-scaffolder-backend@1.15.2-next.2
+
 ## 0.2.86-next.1
 
 ### Patch Changes

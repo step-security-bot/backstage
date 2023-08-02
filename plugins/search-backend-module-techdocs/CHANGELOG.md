@@ -1,5 +1,11 @@
 # @backstage/plugin-search-backend-module-techdocs
 
+## 0.1.4-next.2
+
+### Patch Changes
+
+- 29f77f923c71: Ensure that all services are dependency injected into the module instead of taken from options
+
 ## 0.1.4-next.1
 
 ### Patch Changes
