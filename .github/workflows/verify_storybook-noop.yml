@@ -18,6 +18,9 @@ on:
       - 'packages/core-components/src/**'
       - '**/*.stories.tsx'
 
+permissions:
+  contents: read
+
 jobs:
   noop:
     runs-on: ubuntu-latest

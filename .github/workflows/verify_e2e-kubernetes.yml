@@ -21,21 +21,21 @@ jobs:
 
     name: Kubernetes ${{ matrix.node-version }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
 
       - name: use node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@e33196f7422957bea03ed53f6fbb155025ffc7b8 # v3.7.0
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org/ # Needed for auth
 
       - name: yarn install
-        uses: backstage/actions/yarn-install@v0.6.4
+        uses: backstage/actions/yarn-install@497722d45fb5a35c14c721f63ed74e6ad5f629dd # v0.6.4
         with:
           cache-prefix: ${{ runner.os }}-v${{ matrix.node-version }}
 
       - name: bootstrap kind
-        uses: helm/kind-action@v1.7.0
+        uses: helm/kind-action@fa81e57adff234b2908110485695db0f181f3c67 # v1.7.0
 
       - name: kubernetes test
         working-directory: packages/backend-common

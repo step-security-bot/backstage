@@ -9,7 +9,7 @@
 #
 # Once the commands have been run, you can build the image using `yarn build-image`
 
-FROM node:16-bullseye-slim
+FROM node:16-bullseye-slim@sha256:5b568e11d9044f87a1a02cdb09253c3df22a62dbadd381f7071b5cbfb047d3e0
 
 # Install isolate-vm dependencies, these are needed by the @backstage/plugin-scaffolder-backend.
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \

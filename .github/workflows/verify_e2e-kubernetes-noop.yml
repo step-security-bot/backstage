@@ -9,6 +9,9 @@ on:
       - '.github/workflows/verify_kubernetes.yml'
       - 'packages/backend-common/src/**'
 
+permissions:
+  contents: read
+
 jobs:
   verify:
     runs-on: ubuntu-latest

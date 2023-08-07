@@ -17,6 +17,9 @@ on:
       - 'plugins/search/src/**'
       - 'plugins/search-react/src/**'
 
+permissions:
+  contents: read
+
 jobs:
   noop:
     name: Accessibility
